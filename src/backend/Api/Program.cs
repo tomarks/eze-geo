@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Add Database Infrastructure
 builder.Services.AddInfrastructure((_, builder) =>
 {
     var folder = Environment.SpecialFolder.LocalApplicationData;

@@ -1,9 +1,13 @@
-﻿using Infrastructure;
+﻿using Api.Features.Documents.UploadDocument;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
-public class DocumentsController(DocumentsContext db): ControllerBase
+[ApiController]
+[Route("[controller]")]
+public class DocumentsController(IMediator mediator) : ControllerBase
 {
-    
+    public async Task UploadFile([FromBody] UploadDocumentRequest request, CancellationToken token)
+        => await mediator.Send(request, token);
 }
