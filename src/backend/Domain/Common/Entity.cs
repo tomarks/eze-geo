@@ -1,6 +1,8 @@
-﻿namespace Domain;
+﻿using Domain.Abstractions;
 
-public abstract class Entity
+namespace Domain.Common;
+
+public abstract class Entity: IEntity
 {
     public Guid Id { get; init; }
 

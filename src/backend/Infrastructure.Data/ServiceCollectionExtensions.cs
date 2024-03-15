@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+    public static IServiceCollection AddDatabase(this IServiceCollection services,
         Action<IServiceProvider, DbContextOptionsBuilder> optionsAction)
     {
         Guard.Against.Null(services);
