@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Add Database Infrastructure
-builder.Services.AddInfrastructure((_, builder) =>
+builder.Services.AddDatabase((_, builder) =>
 {
     var folder = Environment.SpecialFolder.LocalApplicationData;
     var path = Environment.GetFolderPath(folder);

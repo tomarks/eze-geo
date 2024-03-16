@@ -1,7 +1,14 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Abstractions;
+using Domain.Common;
 
-public sealed class Document: Entity
+namespace Domain.Entities;
+
+public sealed class Document : Entity, IHasParentDirectory
 {
-    public Guid FolderId { get; init; }
+    public string Name { get; init; } = null!;
     public string Extension { get; init; } = null!;
+    public byte[] Data { get; init; } = null!;
+
+    public Guid ParentDirectoryId { get; set; }
+    public DirectoryNode ParentDirectory { get; set; }
 }
