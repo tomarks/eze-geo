@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Add Database Infrastructure
-builder.Services.AddDatabase((serviceProvider, builder) =>
+builder.Services.AddDatabase((_, builder) =>
 {
     var folder = Environment.SpecialFolder.LocalApplicationData;
     var path = Environment.GetFolderPath(folder);
@@ -28,17 +27,16 @@ var app = builder.Build();
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<DocumentsContext>();
 
-// TODO Remove this 
-if (Debugger.IsAttached)
-{
-    await context.Database.EnsureDeletedAsync();
-}
-await context.Database.EnsureCreatedAsync();
 try
 {
     await context.Database.MigrateAsync();
 }
-catch(Exception ex){}
+catch (Exception ex)
+{
+}
+
+await context.Database.EnsureCreatedAsync();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

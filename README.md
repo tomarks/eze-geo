@@ -12,7 +12,8 @@
    1. Navigate to **/src/frontend/** in the terminal
    2. Run > `npm run setup` - this will install pnpm and the project packages
    3. Run > `npm start` - this will run vite
-
+3. Database
+   1. Nothing needs to be done, the project should create a sqlite database automatically in the local user directory `C:\Users\{user}\AppData\Local`
 
 ## Task
 Develop a web-based file and folder explorer with the following features (use the wireframe below as the app’s UI layout).

@@ -30,6 +30,7 @@ public class DocumentConfiguration : IEntityTypeConfiguration<Document>
             .HasOne(d => d.ParentDirectory)
             .WithMany(d => d.Documents)
             .HasForeignKey(d => d.ParentDirectoryId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
     }
 }
