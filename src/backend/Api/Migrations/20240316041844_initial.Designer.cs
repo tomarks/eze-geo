@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(DocumentsContext))]
-    [Migration("20240316023727_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240316041844_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,12 +31,10 @@ namespace Api.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ParentDirectoryId")
+                    b.Property<Guid?>("ParentDirectoryId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentDirectoryId");
 
                     b.ToTable("DirectoryNodes", (string)null);
                 });
@@ -71,17 +69,6 @@ namespace Api.Migrations
                     b.ToTable("Documents", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.DirectoryNode", b =>
-                {
-                    b.HasOne("Domain.Entities.DirectoryNode", "ParentDirectory")
-                        .WithMany("DirectoryNodes")
-                        .HasForeignKey("ParentDirectoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ParentDirectory");
-                });
-
             modelBuilder.Entity("Domain.Entities.Document", b =>
                 {
                     b.HasOne("Domain.Entities.DirectoryNode", "ParentDirectory")
@@ -95,8 +82,6 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Domain.Entities.DirectoryNode", b =>
                 {
-                    b.Navigation("DirectoryNodes");
-
                     b.Navigation("Documents");
                 });
 #pragma warning restore 612, 618

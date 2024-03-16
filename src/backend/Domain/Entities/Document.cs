@@ -3,7 +3,7 @@ using Domain.Common;
 
 namespace Domain.Entities;
 
-public sealed class Document : Entity, IHasParentDirectory
+public sealed class Document : Entity, IHaveParentDirectory
 {
     public string Name { get; init; } = null!;
     public string Extension { get; init; } = null!;

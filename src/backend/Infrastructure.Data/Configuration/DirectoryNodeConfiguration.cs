@@ -14,12 +14,7 @@ public class DirectoryNodeConfiguration : IEntityTypeConfiguration<DirectoryNode
             .IsRequired()
             .HasMaxLength(255);
 
-        builder.Property(d => d.ParentDirectoryId)
-            .IsRequired();
-
-        builder
-            .HasOne(d => d.ParentDirectory)
-            .WithMany(d => d.DirectoryNodes)
-            .HasForeignKey(d => d.ParentDirectoryId);
+ 
+   
     }
 }

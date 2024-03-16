@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,12 @@ var app = builder.Build();
 // TODO: Come back and fix this dirty hack
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<DocumentsContext>();
+
+// TODO Remove this 
+if (Debugger.IsAttached)
+{
+    await context.Database.EnsureDeletedAsync();
+}
 await context.Database.EnsureCreatedAsync();
 try
 {
