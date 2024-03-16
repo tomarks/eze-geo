@@ -10,10 +10,10 @@ namespace Api.Controllers;
 public class DocumentsController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
-    public async Task UploadFile([FromBody] CreateDocumentCommand command, CancellationToken token)
-        => await mediator.Send(command, token);
+    public async Task UploadFile([FromBody] CreateDocumentCommand command, CancellationToken cancellation)
+        => await mediator.Send(command, cancellation);
 
     [HttpDelete("{id}")]
-    public async Task DeleteFile([FromQuery] DeleteDocumentCommand command, CancellationToken token)
-        => await mediator.Send(command, token);
+    public async Task DeleteFile([FromQuery] DeleteDocumentCommand command, CancellationToken cancellation)
+        => await mediator.Send(command, cancellation);
 }

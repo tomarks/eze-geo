@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Api.Features.DirectoryNodes.GetStructure;
 
 public class GetDirectoryStructureQueryHandler
-    (DocumentsContext db, ILogger<GetDirectoryStructureQueryHandler> logger) : IRequestHandler<
-        GetDirectoryStructureQuery, DirectoryStructure>
+    (DocumentsContext db) : IRequestHandler<GetDirectoryStructureQuery, DirectoryStructure>
 {
     public async Task<DirectoryStructure> Handle(GetDirectoryStructureQuery request,
-        CancellationToken token)
+        CancellationToken cancellation)
     {
-        var directories = await db.DirectoryNodes.ToListAsync(token);
+        var directories = await db.DirectoryNodes.ToListAsync(cancellation);
         var roots = directories.Where(x => x.ParentDirectoryId is null).Select(x => x.ToDto()).ToList();
 
         if (!roots.Any())

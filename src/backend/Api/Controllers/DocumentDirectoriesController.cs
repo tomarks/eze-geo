@@ -11,17 +11,17 @@ public class DocumentDirectoriesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetStructure(CancellationToken token)
+    public async Task<IActionResult> GetStructure(CancellationToken cancellation)
     {
-        var result = await mediator.Send(new GetDirectoryStructureQuery(), token);
+        var result = await mediator.Send(new GetDirectoryStructureQuery(), cancellation);
         return Ok(result);
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Create(CreateDocumentDirectoryCommand command, CancellationToken token)
+    public async Task<IActionResult> Create(CreateDocumentDirectoryCommand command, CancellationToken cancellation)
     {
-        var result = await mediator.Send(command, token);
+        var result = await mediator.Send(command, cancellation);
         return Ok(result);
     }
 }

@@ -1,3 +1,5 @@
+using Api.Behaviors;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api;
@@ -20,8 +22,16 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        return
-            // Add Mediatr
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+        // Add Fluent Validation
+        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+        // Add Mediation
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        });
+
+        return services;
     }
 }
