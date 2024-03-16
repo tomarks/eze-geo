@@ -8,6 +8,7 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class DocumentsController(IMediator mediator) : ControllerBase
 {
+    [HttpPost]
     public async Task UploadFile([FromBody] UploadDocumentRequest request, CancellationToken token)
         => await mediator.Send(request, token);
 }

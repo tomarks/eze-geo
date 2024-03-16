@@ -1,3 +1,4 @@
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +12,7 @@ builder.Services.AddDatabase((_, builder) =>
     var folder = Environment.SpecialFolder.LocalApplicationData;
     var path = Environment.GetFolderPath(folder);
     var dbPath = Path.Join(path, "documents.db");
-    builder.UseSqlite($"Data Source={dbPath}");
+    builder.UseSqlite($"Data Source={dbPath}", x => x.MigrationsAssembly(typeof(Program).Assembly.FullName));
 });
 
 builder.Services.AddControllers();
