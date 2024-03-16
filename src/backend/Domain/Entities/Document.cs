@@ -9,6 +9,6 @@ public sealed class Document : Entity, IHaveParentDirectory
     public string Extension { get; init; } = null!;
     public byte[] Data { get; init; } = null!;
 
-    public Guid ParentDirectoryId { get; set; }
+    public Guid ParentDirectoryId { get; init; }
     public DirectoryNode ParentDirectory { get; set; }
 }
