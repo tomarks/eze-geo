@@ -18,5 +18,6 @@ public class DocumentsContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(DocumentConfiguration).Assembly);
+        
     }
 }
