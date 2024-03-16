@@ -22,6 +22,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddCors();
+        
         // Add Fluent Validation
         services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 

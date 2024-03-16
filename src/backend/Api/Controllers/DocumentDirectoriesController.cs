@@ -10,7 +10,7 @@ namespace Api.Controllers;
 public class DocumentDirectoriesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DirectoryStructure), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetStructure(CancellationToken cancellation)
     {
         var result = await mediator.Send(new GetDirectoryStructureQuery(), cancellation);
