@@ -7,7 +7,6 @@ public class CreateDocumentCommandValidator : AbstractValidator<CreateDocumentCo
 {
     public CreateDocumentCommandValidator()
     {
-        RuleFor(x => x.DocumentName).NotEmpty();
         RuleFor(x => x.ParentDirectoryId).NotNull();
         RuleFor(x => x.File).NotNull();
     }
