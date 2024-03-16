@@ -2,9 +2,9 @@ using Domain.Entities;
 
 namespace Api.Features.DirectoryNodes;
 
-public static class DirectoryNodeExtensions
+public static class DocumentDirectoryExtensions
 {
-    public static DirectoryNode ToEntity(this DirectoryNodeCreateRequest dto)
+    public static DirectoryNode ToEntity(this CreateDocumentDirectoryCommand dto)
     {
         return new DirectoryNode
         {
@@ -14,9 +14,9 @@ public static class DirectoryNodeExtensions
         };
     }
 
-    public static DirectoryNodeItemDto ToDto(this DirectoryNode node)
+    public static DocumentDirectoryDto ToDto(this DirectoryNode node)
     {
-        return new DirectoryNodeItemDto
+        return new DocumentDirectoryDto
         {
             Id = node.Id,
             ParentDirectoryId = node.ParentDirectoryId,
