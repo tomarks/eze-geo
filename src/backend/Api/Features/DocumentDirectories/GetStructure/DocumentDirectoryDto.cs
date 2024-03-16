@@ -2,7 +2,7 @@ using Domain.Abstractions;
 
 namespace Api.Features.DirectoryNodes;
 
-public class DocumentDirectoryDto: IEntity, ICanHaveParentDirectory
+public class DocumentDirectoryDto : IEntity, ICanHaveParentDirectory
 {
     public Guid Id { get; init; }
     public Guid? ParentDirectoryId { get; set; }

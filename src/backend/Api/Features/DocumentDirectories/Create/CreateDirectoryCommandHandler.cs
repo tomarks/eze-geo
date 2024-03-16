@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Api.Features.DirectoryNodes;
 
-public class CreateDocumentDirectoryCommandHandler(DocumentsContext db) : IRequestHandler<CreateDocumentDirectoryCommand, DocumentDirectoryDto>
+public class CreateDirectoryCommandHandler(DocumentsContext db) : IRequestHandler<CreateDirectoryCommand, DocumentDirectoryDto>
 {
-    public async Task<DocumentDirectoryDto> Handle(CreateDocumentDirectoryCommand request,
+    public async Task<DocumentDirectoryDto> Handle(CreateDirectoryCommand request,
         CancellationToken cancellation)
     {
         var entity = request.ToEntity();

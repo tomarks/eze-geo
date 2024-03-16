@@ -128,3 +128,4 @@ csharp_preserve_single_line_blocks = true
 # ReSharper https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_LineBreaksPageSchema.html#Arrangement_of_initializers
 csharp_max_initializer_elements_on_line=2
 max_initializer_elements_on_line=2
+place_attribute_on_same_line=false

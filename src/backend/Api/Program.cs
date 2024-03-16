@@ -1,4 +1,5 @@
 using Api;
+using Api.Middleware;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,5 +46,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ValidationExceptionHandlingMiddleware>();
 
 app.Run();

@@ -4,7 +4,7 @@ namespace Api.Features.DirectoryNodes;
 
 public static class DocumentDirectoryExtensions
 {
-    public static DirectoryNode ToEntity(this CreateDocumentDirectoryCommand dto)
+    public static DirectoryNode ToEntity(this CreateDirectoryCommand dto)
     {
         return new DirectoryNode
         {

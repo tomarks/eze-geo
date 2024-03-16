@@ -18,8 +18,9 @@ public class DocumentDirectoriesController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Create(CreateDocumentDirectoryCommand command, CancellationToken cancellation)
+    [ProducesResponseType(typeof(DocumentDirectoryDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create(CreateDirectoryCommand command, CancellationToken cancellation)
     {
         var result = await mediator.Send(command, cancellation);
         return Ok(result);

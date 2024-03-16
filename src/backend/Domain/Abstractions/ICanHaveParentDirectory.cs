@@ -8,5 +8,5 @@ public interface ICanHaveParentDirectory
     /// <summary>
     /// Gets or sets the unique identifier of the parent directory. Use an Empty/Default Guid for a root directory.
     /// </summary>
-    public Guid? ParentDirectoryId { get; set; }
+    public Guid? ParentDirectoryId { get; }
 }
