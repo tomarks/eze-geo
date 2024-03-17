@@ -103,10 +103,57 @@ export class Client {
 
     /**
      * @param parentDirectoryId (optional) 
+     * @return Success
+     */
+    documentsGET(parentDirectoryId: string | undefined): Promise<GetDocumentListResponse> {
+        let url_ = this.baseUrl + "/api/Documents?";
+        if (parentDirectoryId === null)
+            throw new Error("The parameter 'parentDirectoryId' cannot be null.");
+        else if (parentDirectoryId !== undefined)
+            url_ += "ParentDirectoryId=" + encodeURIComponent("" + parentDirectoryId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processDocumentsGET(_response);
+        });
+    }
+
+    protected processDocumentsGET(response: Response): Promise<GetDocumentListResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetDocumentListResponse;
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ValidationProblemDetails;
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<GetDocumentListResponse>(null as any);
+    }
+
+    /**
+     * @param parentDirectoryId (optional) 
      * @param file (optional) 
      * @return Success
      */
-    documents(parentDirectoryId: string | undefined, file: FileParameter | undefined): Promise<DocumentCreatedResponse> {
+    documentsPOST(parentDirectoryId: string | undefined, file: FileParameter | undefined): Promise<DocumentCreatedResponse> {
         let url_ = this.baseUrl + "/api/Documents";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -129,11 +176,11 @@ export class Client {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDocuments(_response);
+            return this.processDocumentsPOST(_response);
         });
     }
 
-    protected processDocuments(response: Response): Promise<DocumentCreatedResponse> {
+    protected processDocumentsPOST(response: Response): Promise<DocumentCreatedResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -155,6 +202,56 @@ export class Client {
         }
         return Promise.resolve<DocumentCreatedResponse>(null as any);
     }
+
+    /**
+     * @param idQuery (optional) 
+     * @return Success
+     */
+    documentsGET2(idQuery: string | undefined, idPath: string): Promise<DocumentItemDto> {
+        let url_ = this.baseUrl + "/api/Documents/{id}?";
+        if (idPath === undefined || idPath === null)
+            throw new Error("The parameter 'idPath' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + idPath));
+        if (idQuery === null)
+            throw new Error("The parameter 'idQuery' cannot be null.");
+        else if (idQuery !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + idQuery) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processDocumentsGET2(_response);
+        });
+    }
+
+    protected processDocumentsGET2(response: Response): Promise<DocumentItemDto> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as DocumentItemDto;
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ValidationProblemDetails;
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<DocumentItemDto>(null as any);
+    }
 }
 
 export interface CreateDirectoryCommand {
@@ -175,6 +272,25 @@ export interface DocumentDirectoryDto {
     parentDirectoryId?: string | undefined;
     name?: string | undefined;
     directories?: DocumentDirectoryDto[] | undefined;
+}
+
+export interface DocumentItemDto {
+    id?: string;
+    name?: string | undefined;
+    extension?: string | undefined;
+    parentDirectoryId?: string;
+    data?: string | undefined;
+}
+
+export interface DocumentListDto {
+    id?: string;
+    name?: string | undefined;
+    extension?: string | undefined;
+    parentDirectoryId?: string;
+}
+
+export interface GetDocumentListResponse {
+    items?: DocumentListDto[] | undefined;
 }
 
 export interface ValidationProblemDetails {
