@@ -106,7 +106,7 @@ export class Client {
      * @param file (optional) 
      * @return Success
      */
-    documents(parentDirectoryId: string | undefined, file: FileParameter | undefined): Promise<void> {
+    documents(parentDirectoryId: string | undefined, file: FileParameter | undefined): Promise<DocumentCreatedResponse> {
         let url_ = this.baseUrl + "/api/Documents";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -124,6 +124,7 @@ export class Client {
             body: content_,
             method: "POST",
             headers: {
+                "Accept": "text/plain"
             }
         };
 
@@ -132,19 +133,27 @@ export class Client {
         });
     }
 
-    protected processDocuments(response: Response): Promise<void> {
+    protected processDocuments(response: Response): Promise<DocumentCreatedResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as DocumentCreatedResponse;
+            return result200;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+            let result400: any = null;
+            result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ValidationProblemDetails;
+            return throwException("Bad Request", status, _responseText, _headers, result400);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<DocumentCreatedResponse>(null as any);
     }
 }
 
@@ -155,6 +164,10 @@ export interface CreateDirectoryCommand {
 
 export interface DirectoryStructure {
     rootDirectories?: DocumentDirectoryDto[] | undefined;
+}
+
+export interface DocumentCreatedResponse {
+    id?: string;
 }
 
 export interface DocumentDirectoryDto {

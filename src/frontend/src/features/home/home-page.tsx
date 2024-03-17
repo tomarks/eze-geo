@@ -1,16 +1,26 @@
 import { Button, Card, CardContent, CardHeader, Paper, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { DirectoryBreadcrumbs } from '../../components/common/breadcrumbs/directory-breadcrumbs.component';
 import { DirectoryPicker } from '../../components/common/directory-picker/directory-picker.component';
 import { useFolderExplorerContext } from '../folder-explorer/folder-explorer.context';
 
 export const Home = () => {
-  const { directoryStructure, selectFolder, createFolder, selectedDirectoryPath } = useFolderExplorerContext();
+  const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
+  const fileUploadInput = useRef<HTMLInputElement>(null);
 
   const onCreateFolderClick = () => {
     setFolderName('');
     createFolder(folderName);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    if (files && files.length > 0) {
+      const fileToUpload = files[0];
+      uploadFile(fileToUpload);
+    }
   };
 
   return (
@@ -30,7 +40,11 @@ export const Home = () => {
             <TextField autoComplete="off" id="folderNameInput" label="Folder Name" variant="standard" value={folderName} onChange={(e) => setFolderName(e.target.value)} />
           </div>
           <div className="flex grow flex-row justify-end">
-            <Button variant="contained">Upload File</Button>
+            <input ref={fileUploadInput} onChange={handleFileUpload} id="fileUploadInput" type="file" hidden />
+
+            <Button disabled={selectedDirectoryId == null} onClick={() => fileUploadInput.current?.click()} variant="contained">
+              Upload File
+            </Button>
           </div>
         </div>
         <div className="m-5 flex h-full flex-1 flex-row gap-5">

@@ -20,8 +20,6 @@ const renderTreeItem = (directory: DocumentDirectoryDto): JSX.Element => {
 export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySelected, structure }) => {
   const keys = useMemo(() => structure.rootDirectories?.flatMap(getChildKeys), [structure]);
 
-  console.debug(keys);
-
   return (
     <TreeView
       aria-label="file system navigator"

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { Client, DirectoryStructure, DocumentDirectoryDto } from '../../../generated/client';
+import { Client, DirectoryStructure, DocumentDirectoryDto, FileParameter } from '../../../generated/client';
+import { Alert, Snackbar } from '@mui/material';
 
 // Define the initial state of the context
 interface FolderExplorerContextState {
@@ -9,6 +10,8 @@ interface FolderExplorerContextState {
   createFolder: (folder: string) => void;
   selectedDirectoryPath: DocumentDirectoryDto[];
   selectedDirectory: DocumentDirectoryDto | null;
+  uploadFile: (file: File) => void;
+  isLoading: boolean;
 }
 
 // Create the context
@@ -19,6 +22,8 @@ export const FolderExplorerContext = createContext<FolderExplorerContextState | 
   createFolder: () => {},
   selectedDirectoryPath: [],
   selectedDirectory: null,
+  uploadFile: () => {},
+  isLoading: false,
 });
 
 export const useFolderExplorerContext = () => {
@@ -39,6 +44,12 @@ export const FolderExplorerProvider: React.FC<{
   const [selectedDirectoryId, setselectedDirectoryId] = useState<string | null>(null);
   const [directoryStructure, setDirectoryStructure] = useState<DirectoryStructure | null>(null);
 
+  // Loading flags
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
+  const [isFetchingDirectoryStructure, setIsFetchingDirectoryStructure] = useState(false);
+  const [isCreatingFolder, setIsCreatingFolder] = useState(false);
+  const isLoading = isUploadingFile || isFetchingDirectoryStructure || isCreatingFolder;
+
   const [selectedDirectory, selectedDirectoryPath] = useMemo(() => {
     if (selectedDirectoryId == null || directoryStructure?.rootDirectories == null) {
       return [null, []];
@@ -47,15 +58,20 @@ export const FolderExplorerProvider: React.FC<{
     return findDirectoryRecursive(selectedDirectoryId, directoryStructure.rootDirectories, []);
   }, [selectedDirectoryId, directoryStructure]);
 
-  // Setup Initial Data
+  // API Request to fetch initial folder structure
   useEffect(() => {
+    setIsFetchingDirectoryStructure(true);
     const api = new Client('/api');
 
-    api.documentDirectoriesGET().then((res) => {
-      setDirectoryStructure(res);
-    });
-
-    return () => {};
+    api
+      .documentDirectoriesGET()
+      .then((res) => {
+        setDirectoryStructure(res);
+        setIsFetchingDirectoryStructure(false);
+      })
+      .catch((err) => {
+        setIsFetchingDirectoryStructure(false);
+      });
   }, []);
 
   // Define the selectFolder function to update the selected folder
@@ -63,12 +79,25 @@ export const FolderExplorerProvider: React.FC<{
     setselectedDirectoryId(folder);
   };
 
+  // API Request to create a folder
   const createFolder = (folder: string) => {
     const api = new Client('/api');
+    setIsCreatingFolder(true);
 
-    api.documentDirectoriesPOST({ name: folder, parentDirectoryId: selectedDirectoryId! }).then((res) => {
-      updateDirectoryStructure(selectedDirectoryId, res, directoryStructure!);
-    });
+    api
+      .documentDirectoriesPOST({ name: folder, parentDirectoryId: selectedDirectoryId! })
+      .then((res) => {
+        updateDirectoryStructure(selectedDirectoryId, res, directoryStructure!);
+        setIsCreatingFolder(false);
+      })
+      .catch((err) => {
+        setIsCreatingFolder(false);
+        if (isValidationFailure(err)) {
+          alert('Validation Error: ' + err.errors[0].errorMessage);
+        } else {
+          console.error(err);
+        }
+      });
   };
 
   // TODO: Add null checks
@@ -94,11 +123,42 @@ export const FolderExplorerProvider: React.FC<{
     }
   };
 
+  // API Request to upload a file
+  const uploadFile = (file: File) => {
+    setIsUploadingFile(true);
+    const api = new Client('/api');
+
+    const fileData: FileParameter = {
+      data: file as any,
+      fileName: file.name,
+    };
+
+    if (selectedDirectoryId) {
+      api
+        .documents(selectedDirectoryId, fileData)
+        .then((res) => {
+          setIsUploadingFile(false);
+
+          // TODO: add files to current files list
+        })
+        .catch((err) => {
+          setIsUploadingFile(false);
+
+          if (isValidationFailure(err)) {
+            alert('Validation Error: ' + err.errors[0].errorMessage);
+          } else {
+            console.error(err);
+          }
+        });
+    }
+  };
+
   // Provide the context value to the children components
   return (
-    <FolderExplorerContext.Provider value={{ selectedDirectoryId, selectFolder, directoryStructure, createFolder, selectedDirectory, selectedDirectoryPath }}>
-      {' '}
-      {children}{' '}
+    <FolderExplorerContext.Provider
+      value={{ selectedDirectoryId, selectFolder, directoryStructure, createFolder, selectedDirectory, selectedDirectoryPath, uploadFile, isLoading }}
+    >
+      {children}
     </FolderExplorerContext.Provider>
   );
 };
@@ -119,4 +179,8 @@ export const findDirectoryRecursive = (
   }
 
   return [null, []]; // return an empty path if the directory was not found
+};
+
+const isValidationFailure = (err: any): err is { type: 'ValidationFailure'; errors: { errorMessage: string }[] } => {
+  return err.type === 'ValidationFailure';
 };
