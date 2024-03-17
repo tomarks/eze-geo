@@ -1,17 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Home } from './features/home/home-page';
-import {
-  FolderExplorerContext,
-  FolderExplorerProvider,
-} from './features/folder-explorer/folder-explorer.context';
+import { FolderExplorerProvider } from './features/folder-explorer/folder-explorer.context';
+import { FolderExplorerPage } from './features/folder-explorer/folder-explorer.page';
 
 function App() {
   return (
     <BrowserRouter>
       <FolderExplorerProvider>
         <Routes>
-          <Route path="/*" element={<Home />} />
+          <Route path="/*" element={<FolderExplorerPage />} />
         </Routes>
       </FolderExplorerProvider>
     </BrowserRouter>

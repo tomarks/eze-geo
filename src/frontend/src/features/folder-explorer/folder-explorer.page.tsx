@@ -2,9 +2,9 @@ import { Button, Card, CardContent, CardHeader, Paper, TextField, Typography } f
 import { useRef, useState } from 'react';
 import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
 import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
-import { useFolderExplorerContext } from '../folder-explorer/folder-explorer.context';
+import { useFolderExplorerContext } from './folder-explorer.context';
 
-export const Home = () => {
+export const FolderExplorerPage = () => {
   const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
   const fileUploadInput = useRef<HTMLInputElement>(null);
