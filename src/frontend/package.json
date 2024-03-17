@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "setup":"npm install -g pnpm && pnpm install && echo \"Setup complete! run >'npm start' to begin\"",
+    "api":"cd ../backend/Api/ && dotnet run --launch-profile https",
     "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
