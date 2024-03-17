@@ -13,7 +13,14 @@ export default defineConfig(({ command, mode }) => {
       strictPort: true,
       open: '/',
       proxy: {
-        '/api': env.VITE_API,
+        
+        '/api': {
+          target: env.VITE_API,
+          changeOrigin: true,
+          secure:false,
+          rewrite: path => path.replace(/^\/api/, '')
+        }
+        
       },
     },
     build: {

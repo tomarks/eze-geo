@@ -22,7 +22,7 @@ export class Client {
      * @return Success
      */
     documentDirectoriesGET(): Promise<DirectoryStructure> {
-        let url_ = this.baseUrl + "/DocumentDirectories";
+        let url_ = this.baseUrl + "/api/DocumentDirectories";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -59,7 +59,7 @@ export class Client {
      * @return Success
      */
     documentDirectoriesPOST(body: CreateDirectoryCommand | undefined): Promise<DocumentDirectoryDto> {
-        let url_ = this.baseUrl + "/DocumentDirectories";
+        let url_ = this.baseUrl + "/api/DocumentDirectories";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -107,7 +107,7 @@ export class Client {
      * @return Success
      */
     documents(parentDirectoryId: string | undefined, file: FileParameter | undefined): Promise<void> {
-        let url_ = this.baseUrl + "/Documents";
+        let url_ = this.baseUrl + "/api/Documents";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();

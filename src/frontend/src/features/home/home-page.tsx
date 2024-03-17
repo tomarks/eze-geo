@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Client, DirectoryStructure } from '../../../generated/client';
-import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
+import { DirectoryPicker } from '../../components/common/directory-picker/directory-picker.component';
 import {
   Button,
   Card,
@@ -10,16 +10,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
+import { DirectoryBreadcrumbs } from '../../components/common/breadcrumbs/directory-breadcrumbs.component';
 
 export const Home = () => {
   const [directoryStructure, setDirectoryStructure] =
     useState<DirectoryStructure | null>(null);
 
-  const api = import.meta.env.VITE_API;
-
   useEffect(() => {
-    const api = new Client(import.meta.env.VITE_API);
+    const api = new Client('/api');
 
     api.documentDirectoriesGET().then((res) => {
       setDirectoryStructure(res);
