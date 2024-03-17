@@ -1,25 +1,44 @@
-import React from 'react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { TreeView } from '@mui/x-tree-view/TreeView';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
+import { TreeView } from '@mui/x-tree-view/TreeView';
+import React, { useMemo } from 'react';
+import { DirectoryStructure, DocumentDirectoryDto } from '../../../../generated/client';
+interface DirectoryPickerProps {
+  structure: DirectoryStructure;
+  onDirectorySelected: (directory: string) => void;
+}
 
-export const DirectoryPicker: React.FC = () => {
+const renderTreeItem = (directory: DocumentDirectoryDto): JSX.Element => {
+  return (
+    <TreeItem key={directory.id} nodeId={directory.id!} label={directory.name}>
+      {directory.directories?.map(renderTreeItem)}
+    </TreeItem>
+  );
+};
+
+export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySelected, structure }) => {
+  const keys = useMemo(() => structure.rootDirectories?.flatMap(getChildKeys), [structure]);
+
+  console.debug(keys);
+
   return (
     <TreeView
       aria-label="file system navigator"
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
+      defaultExpanded={keys}
+      onNodeSelect={(event, node) => {
+        if (node) {
+          onDirectorySelected(node);
+        }
+      }}
     >
-      <TreeItem nodeId="1" label="Applications">
-        <TreeItem nodeId="2" label="Calendar" />
-      </TreeItem>
-      <TreeItem nodeId="5" label="Documents">
-        <TreeItem nodeId="10" label="OSS" />
-        <TreeItem nodeId="6" label="MUI">
-          <TreeItem nodeId="8" label="index.js" />
-        </TreeItem>
-      </TreeItem>
+      {structure?.rootDirectories?.map(renderTreeItem)}
     </TreeView>
   );
+};
+
+const getChildKeys = (directory: DocumentDirectoryDto): string[] => {
+  return directory.directories?.map((d) => d.id!) ?? [];
 };
