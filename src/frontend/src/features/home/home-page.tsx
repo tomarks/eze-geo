@@ -6,9 +6,9 @@ import {
   Card,
   CardContent,
   CardHeader,
-  DialogTitle,
   Paper,
   TextField,
+  Typography,
 } from '@mui/material';
 import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
 
@@ -31,9 +31,15 @@ export const Home = () => {
   return (
     <>
       <Paper
-        className="m-5 min-h-[calc(100vh-80px)] w-[calc(100vw-80px)] p-5 flex flex-col"
+        className="m-5 flex min-h-[calc(100vh-80px)] w-[calc(100vw-80px)] flex-col p-5"
         elevation={5}
       >
+        <div>
+          <Typography className="uppercase" variant="h3" component="h3">
+            Welcome to Folder Explorer
+          </Typography>
+        </div>
+
         <div className="m-5 flex flex-row gap-5">
           <div className="flex flex-row gap-5 ">
             <Button variant="contained">Create Folder</Button>
@@ -43,26 +49,27 @@ export const Home = () => {
               variant="standard"
             />
           </div>
-          <div className='grow flex justify-end flex-row'>
-          <Button variant="contained">Upload File</Button>
-
+          <div className="flex grow flex-row justify-end">
+            <Button variant="contained">Upload File</Button>
           </div>
-
         </div>
-        <div className="m-5 flex flex-1 h-full flex-row gap-5">
-            <Card elevation={2} className=" h-full w-96">
-              <CardHeader className="text-left" title="Folders" />
-              <CardContent>
-                <DirectoryPicker />
-              </CardContent>
-            </Card>
+        <div className="m-5 flex h-full flex-1 flex-row gap-5">
+          <Card elevation={2} className=" h-full w-96">
+            <CardHeader className="text-left" title="Folders" />
+            <CardContent>
+              <DirectoryPicker />
+            </CardContent>
+          </Card>
 
-            <Card elevation={2}  className='w-full'>
-              <CardHeader className="text-left" title={<DirectoryBreadcrumbs />} />
-              <CardContent className="">
-                <div>Content...</div>
-              </CardContent>
-            </Card>
+          <Card elevation={2} className="w-full">
+            <CardHeader
+              className="text-left"
+              title={<DirectoryBreadcrumbs />}
+            />
+            <CardContent className="">
+              <div>Content...</div>
+            </CardContent>
+          </Card>
         </div>
       </Paper>
     </>
