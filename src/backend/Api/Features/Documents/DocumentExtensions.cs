@@ -47,7 +47,7 @@ public static class DocumentExtensions
             Id = document.Id,
             Extension = document.Extension,
             ParentDirectoryId = document.ParentDirectoryId,
-            Data = document.Data,
+            Data = System.Text.Encoding.Default.GetString(document.Data),
             Name = document.Name
         };
     }

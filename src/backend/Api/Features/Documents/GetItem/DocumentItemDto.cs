@@ -9,5 +9,5 @@ public class DocumentItemDto : IEntity, IHaveParentDirectory
     public string Name { get; init; } = null!;
     public string Extension { get; init; } = null!;
     public Guid ParentDirectoryId { get; init; }
-    public byte[] Data { get; init; }
+    public string Data { get; init; }
 }

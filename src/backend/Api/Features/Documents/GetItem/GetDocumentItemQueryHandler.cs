@@ -5,9 +5,9 @@ using MediatR;
 
 namespace Api.Features.Documents.GetItem;
 
-public class GetDocumentQueryHandler(DocumentsContext db) : IRequestHandler<GetDocumentQuery, DocumentItemDto>
+public class GetDocumentItemQueryHandler(DocumentsContext db) : IRequestHandler<GetDocumentItemQuery, DocumentItemDto>
 {
-    public async Task<DocumentItemDto> Handle(GetDocumentQuery request, CancellationToken cancellationToken)
+    public async Task<DocumentItemDto> Handle(GetDocumentItemQuery request, CancellationToken cancellationToken)
     {
         var document = await db
             .Documents

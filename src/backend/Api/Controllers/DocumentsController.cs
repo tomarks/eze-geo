@@ -24,7 +24,7 @@ public class DocumentsController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetItem([FromRoute] Guid id, CancellationToken cancellation)
     {
-        var result = await mediator.Send(new GetDocumentQuery { Id = id }, cancellation);
+        var result = await mediator.Send(new GetDocumentItemQuery { Id = id }, cancellation);
         return Ok(result);
     }
 

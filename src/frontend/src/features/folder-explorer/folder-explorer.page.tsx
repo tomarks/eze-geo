@@ -6,7 +6,7 @@ import { useFolderExplorerContext } from './folder-explorer.context';
 import { DocumentViewer } from '../document-viewer/document-viewer.component';
 
 export const FolderExplorerPage = () => {
-  const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile, documentsList } = useFolderExplorerContext();
+  const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile, documentsList, isLoading } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
   const fileUploadInput = useRef<HTMLInputElement>(null);
 
@@ -61,9 +61,7 @@ export const FolderExplorerPage = () => {
 
           <Card elevation={2} className="w-full">
             <CardHeader className="text-left" title={<DirectoryBreadcrumbs items={selectedDirectoryPath?.map((x) => x.name!)} />} />
-            <CardContent className="">
-              <DocumentViewer documents={documentsList}></DocumentViewer>
-            </CardContent>
+            <CardContent className="">{isLoading ? null : <DocumentViewer documents={documentsList}></DocumentViewer>}</CardContent>
           </Card>
         </div>
       </Paper>

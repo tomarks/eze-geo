@@ -3,9 +3,9 @@ using Infrastructure;
 
 namespace Api.Features.Documents.GetItem;
 
-public class GetDocumentQueryValidator : AbstractValidator<GetDocumentQuery>
+public class GetDocumentItemQueryValidator : AbstractValidator<GetDocumentItemQuery>
 {
-    public GetDocumentQueryValidator(DocumentsContext db)
+    public GetDocumentItemQueryValidator(DocumentsContext db)
     {
         RuleFor(x => x.Id).NotNull();
 
@@ -13,7 +13,7 @@ public class GetDocumentQueryValidator : AbstractValidator<GetDocumentQuery>
         {
             db.ChangeTracker.AutoDetectChangesEnabled = false;
             var document = await db.Documents.FindAsync(id, cancellation);
-            return document is null;
+            return document is not null;
         }).WithMessage("Document Not Found");
     }
 }
