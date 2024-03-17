@@ -1,7 +1,7 @@
 import { Button, Card, CardContent, CardHeader, Paper, TextField, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
-import { DirectoryBreadcrumbs } from '../../components/common/breadcrumbs/directory-breadcrumbs.component';
-import { DirectoryPicker } from '../../components/common/directory-picker/directory-picker.component';
+import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
+import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
 import { useFolderExplorerContext } from '../folder-explorer/folder-explorer.context';
 
 export const Home = () => {

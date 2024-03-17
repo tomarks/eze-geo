@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import { TreeView } from '@mui/x-tree-view/TreeView';
 import React, { useMemo } from 'react';
-import { DirectoryStructure, DocumentDirectoryDto } from '../../../../generated/client';
+import { DirectoryStructure, DocumentDirectoryDto } from '../../../generated/client';
 interface DirectoryPickerProps {
   structure: DirectoryStructure;
   onDirectorySelected: (directory: string) => void;

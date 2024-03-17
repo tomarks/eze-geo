@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { Client, DirectoryStructure, DocumentDirectoryDto, FileParameter } from '../../../generated/client';
-import { Alert, Snackbar } from '@mui/material';
 
 // Define the initial state of the context
 interface FolderExplorerContextState {
