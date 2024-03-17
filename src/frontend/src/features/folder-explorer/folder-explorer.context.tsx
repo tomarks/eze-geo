@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { Client, DirectoryStructure, DocumentDirectoryDto, DocumentListDto, FileParameter } from '../../../generated/client';
+import { handleError } from '../../utils/error-handling-utils';
 
 // Define the initial state of the context
 interface FolderExplorerContextState {
@@ -197,16 +198,4 @@ export const findDirectoryRecursive = (
   }
 
   return [null, []]; // return an empty path if the directory was not found
-};
-
-const isValidationFailure = (err: any): err is { type: 'ValidationFailure'; errors: { errorMessage: string }[] } => {
-  return err.type === 'ValidationFailure';
-};
-
-const handleError = (err: any) => {
-  if (isValidationFailure(err)) {
-    alert('Validation Error: ' + err.errors[0].errorMessage);
-  } else {
-    console.error(err);
-  }
 };

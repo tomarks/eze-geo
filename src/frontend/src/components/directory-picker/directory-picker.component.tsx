@@ -5,6 +5,7 @@ import { TreeView } from '@mui/x-tree-view/TreeView';
 import React, { useMemo } from 'react';
 import { DirectoryStructure, DocumentDirectoryDto } from '../../../generated/client';
 interface DirectoryPickerProps {
+  disabled: boolean;
   structure: DirectoryStructure;
   onDirectorySelected: (directory: string) => void;
 }
@@ -17,11 +18,12 @@ const renderTreeItem = (directory: DocumentDirectoryDto): JSX.Element => {
   );
 };
 
-export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySelected, structure }) => {
+export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySelected, structure, disabled }) => {
   const keys = useMemo(() => structure.rootDirectories?.flatMap(getChildKeys), [structure]);
 
   return (
     <TreeView
+      disableSelection={disabled}
       aria-label="file system navigator"
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}

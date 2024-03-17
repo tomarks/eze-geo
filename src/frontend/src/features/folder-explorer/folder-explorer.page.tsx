@@ -56,12 +56,17 @@ export const FolderExplorerPage = () => {
         <div className="m-5 flex h-full flex-1 flex-row gap-5">
           <Card elevation={2} className=" h-full w-96">
             <CardHeader className="text-left" title="Folders" />
-            <CardContent>{directoryStructure && <DirectoryPicker structure={directoryStructure} onDirectorySelected={selectFolder} />}</CardContent>
+            <CardContent>{directoryStructure && <DirectoryPicker disabled={isLoading} structure={directoryStructure} onDirectorySelected={selectFolder} />}</CardContent>
           </Card>
 
           <Card elevation={2} className="w-full">
             <CardHeader className="text-left" title={<DirectoryBreadcrumbs items={selectedDirectoryPath?.map((x) => x.name!)} />} />
-            <CardContent className="">{isLoading ? null : <DocumentViewer documents={documentsList}></DocumentViewer>}</CardContent>
+
+            {isLoading ? (
+              <div className="m-5">Loading...</div>
+            ) : (
+              <CardContent className="">{isLoading ? null : <DocumentViewer documents={documentsList}></DocumentViewer>}</CardContent>
+            )}
           </Card>
         </div>
       </Paper>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Client, DocumentListDto } from '../../../generated/client';
-import DocumentSelector from './document-selector.component';
+import { handleError } from '../../utils/error-handling-utils';
 import { CsvToTable } from './csv-to-table.component';
+import DocumentSelector from './document-selector.component';
 
 interface DocumentViewerProps {
   documents: DocumentListDto[];
@@ -10,25 +11,24 @@ interface DocumentViewerProps {
 export const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => {
   const [selectedDocument, setselectedDocument] = useState<DocumentListDto | null>(null);
   const [documentContent, setDocumentContent] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!!selectedDocument) {
+      setIsLoading(true);
       const api = new Client('/api');
 
       api
         .documentsGET2(selectedDocument.id!)
         .then((res) => {
-          var blob = new Blob([res.data!], { type: 'text' });
-          var reader = new FileReader();
-          reader.readAsText(blob);
-          reader.onload = function (e) {
-            var text = reader.result;
-            console.log(text);
-          };
+          setIsLoading(false);
 
           setDocumentContent(res.data!);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setIsLoading(false);
+          handleError(err);
+        });
     }
   }, [selectedDocument]);
 
@@ -36,7 +36,13 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => 
     <div>
       <DocumentSelector documents={documents} onSelect={setselectedDocument}></DocumentSelector>
 
-      {!!documentContent && !!selectedDocument?.extension ? selectedDocument.extension.endsWith('csv') ? <CsvToTable documentData={documentContent}></CsvToTable> : null : null}
+      {isLoading ? (
+        <div className="m-5">Loading...</div>
+      ) : (
+        <>
+          {!!documentContent && !!selectedDocument?.extension ? selectedDocument.extension.endsWith('csv') ? <CsvToTable documentData={documentContent}></CsvToTable> : null : null}
+        </>
+      )}
     </div>
   );
 };
