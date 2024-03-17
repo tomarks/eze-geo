@@ -1,0 +1,8 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "csstools.postcss",
+    "bradlc.vscode-tailwindcss" // Code formatting rules, enables on save formatting
+  ]
+}
