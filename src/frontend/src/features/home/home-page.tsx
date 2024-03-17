@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../components/common/button/button';
 import { Client, DirectoryStructure } from '../../../generated/client';
+import { DirectoryPicker } from '../../components/directory-picker/directory-picker-component';
 
 export const Home = () => {
 
@@ -28,12 +28,10 @@ export const Home = () => {
   return (
     <>
       <div className="flex justify-center align-middle ">
-        <div className="flex w-fit flex-col gap-2">URL: {api}</div>
-        {
-          directoryStructure?.rootDirectories ?
-            <> {directoryStructure.rootDirectories.map(item => <div>{item.name}</div>)} </>
-          : null
-        }
+        <div className="flex w-fit flex-col gap-2"></div>
+
+
+        <DirectoryPicker></DirectoryPicker>
 
       </div>
     </>

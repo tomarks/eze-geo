@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "setup":"npm install -g pnpm && pnpm install && echo \"Setup complete! run >'npm start' to begin\"",
-    "api":"cd ../backend/Api/ && dotnet run --launch-profile https",
+    "setup": "npm install -g pnpm && pnpm install && echo \"Setup complete! run >'npm start' to begin\"",
+    "api": "cd ../backend/Api/ && dotnet run --launch-profile https",
     "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
@@ -16,6 +16,11 @@
     "clean": "rimraf -rf ./dist .turbo *.tsbuildinfo"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.13",
+    "@mui/material": "^5.15.13",
+    "@mui/x-tree-view": "^6.17.0",
     "node-sass": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

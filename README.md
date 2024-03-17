@@ -39,5 +39,11 @@ Develop a web-based file and folder explorer with the following features (use th
 - Folder - A Virtual directory with its overall structure determined by keeping a reference to its parent using an id.
 - File - An uploaded document with a record persisted with a reference to its folder
 
-
-
+### Future Plans
+- Handle any existing TODO comments in backend project
+- Move file data to blob storage (not sql)
+- Add Users/Login System
+- Add Rename/Update/Delete for files and directories
+- Migrate from Sqlite to Postgres
+- Investigate how to draw boundaries on a map using haversine formula and only recording longitudes and latitudes
+ 
