@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Client, DocumentListDto } from '../../../generated/client';
 import { handleError } from '../../utils/error-handling-utils';
-import { CsvToTable } from './csv-to-table.component';
+import { CsvViewer } from './csv-viewer';
 import DocumentSelector from './document-selector.component';
 
 interface DocumentViewerProps {
@@ -40,7 +40,7 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => 
         <div className="m-5">Loading...</div>
       ) : (
         <>
-          {!!documentContent && !!selectedDocument?.extension ? selectedDocument.extension.endsWith('csv') ? <CsvToTable documentData={documentContent}></CsvToTable> : null : null}
+          {!!documentContent && !!selectedDocument?.extension ? selectedDocument.extension.endsWith('csv') ? <CsvViewer documentData={documentContent}></CsvViewer> : null : null}
         </>
       )}
     </div>

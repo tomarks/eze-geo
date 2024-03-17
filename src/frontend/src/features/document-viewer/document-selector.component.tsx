@@ -26,7 +26,7 @@ const DocumentSelector: React.FC<DocumentSelectorProps> = ({ documents, onSelect
       <ToggleButtonGroup color="primary" value={selectedId} exclusive onChange={handleDocumentClick}>
         {documents.map((document) => (
           <ToggleButton key={document.id} value={document.id!}>
-            {document.name}.{document.extension}
+            {document.name}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
