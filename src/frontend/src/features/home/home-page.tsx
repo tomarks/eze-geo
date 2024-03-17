@@ -5,7 +5,7 @@ import { DirectoryPicker } from '../../components/common/directory-picker/direct
 import { useFolderExplorerContext } from '../folder-explorer/folder-explorer.context';
 
 export const Home = () => {
-  const { directoryStructure, selectFolder, selectedDirectoryId, createFolder, selectedDirectory, selectedDirectoryPath } = useFolderExplorerContext();
+  const { directoryStructure, selectFolder, createFolder, selectedDirectoryPath } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
 
   const onCreateFolderClick = () => {
