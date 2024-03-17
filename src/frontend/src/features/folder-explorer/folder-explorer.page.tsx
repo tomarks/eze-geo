@@ -26,12 +26,15 @@ export const FolderExplorerPage = () => {
   return (
     <>
       <Paper className="m-5 flex min-h-[calc(100vh-80px)] w-[calc(100vw-80px)] flex-col p-5" elevation={5}>
+        {/* Heading */}
+
         <div>
           <Typography className="uppercase" variant="h3" component="h3">
             Welcome to Folder Explorer
           </Typography>
         </div>
 
+        {/* Action Bar */}
         <div className="m-5 flex flex-row gap-5">
           <div className="flex flex-row gap-5 ">
             <Button onClick={onCreateFolderClick} variant="contained">
@@ -47,6 +50,8 @@ export const FolderExplorerPage = () => {
             </Button>
           </div>
         </div>
+
+        {/* Folder Picker and Content */}
         <div className="m-5 flex h-full flex-1 flex-row gap-5">
           <Card elevation={2} className=" h-full w-96">
             <CardHeader className="text-left" title="Folders" />

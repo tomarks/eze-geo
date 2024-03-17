@@ -25,12 +25,5 @@ public class DocumentConfiguration : IEntityTypeConfiguration<Document>
 
         builder.Property(d => d.ParentDirectoryId)
             .IsRequired();
-
-        builder
-            .HasOne(d => d.ParentDirectory)
-            .WithMany(d => d.Documents)
-            .HasForeignKey(d => d.ParentDirectoryId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
     }
 }
