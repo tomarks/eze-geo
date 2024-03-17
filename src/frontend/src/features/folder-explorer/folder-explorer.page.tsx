@@ -3,9 +3,10 @@ import { useRef, useState } from 'react';
 import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
 import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
 import { useFolderExplorerContext } from './folder-explorer.context';
+import { DocumentViewer } from '../document-viewer/document-viewer.component';
 
 export const FolderExplorerPage = () => {
-  const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile } = useFolderExplorerContext();
+  const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile, documentsList } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
   const fileUploadInput = useRef<HTMLInputElement>(null);
 
@@ -61,7 +62,7 @@ export const FolderExplorerPage = () => {
           <Card elevation={2} className="w-full">
             <CardHeader className="text-left" title={<DirectoryBreadcrumbs items={selectedDirectoryPath?.map((x) => x.name!)} />} />
             <CardContent className="">
-              <div>Content...</div>
+              <DocumentViewer documents={documentsList}></DocumentViewer>
             </CardContent>
           </Card>
         </div>

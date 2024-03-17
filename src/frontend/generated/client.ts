@@ -204,18 +204,13 @@ export class Client {
     }
 
     /**
-     * @param idQuery (optional) 
      * @return Success
      */
-    documentsGET2(idQuery: string | undefined, idPath: string): Promise<DocumentItemDto> {
-        let url_ = this.baseUrl + "/api/Documents/{id}?";
-        if (idPath === undefined || idPath === null)
-            throw new Error("The parameter 'idPath' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + idPath));
-        if (idQuery === null)
-            throw new Error("The parameter 'idQuery' cannot be null.");
-        else if (idQuery !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + idQuery) + "&";
+    documentsGET2(id: string): Promise<DocumentItemDto> {
+        let url_ = this.baseUrl + "/api/Documents/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{Id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {

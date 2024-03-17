@@ -1,29 +1,35 @@
 import React, { useState } from 'react';
-import { IDocument } from './IDocument';
+
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { DocumentListDto } from '../../../generated/client';
 
 interface DocumentSelectorProps {
-  documents: IDocument[];
-  onSelect: (document: IDocument) => void;
+  documents: DocumentListDto[];
+  onSelect: (document: DocumentListDto) => void;
 }
 
 const DocumentSelector: React.FC<DocumentSelectorProps> = ({ documents, onSelect }) => {
-  const [selectedDocument, setSelectedDocument] = useState<IDocument | null>(null);
+  const [selectedId, setselectedId] = useState<string | null>(null);
 
-  const handleDocumentClick = (document: IDocument) => {
-    setSelectedDocument(document);
+  const handleDocumentClick = (e: any, id: string) => {
+    if (!id) return;
+
+    const document = documents.find((doc) => doc.id === id);
+    if (!document) return;
+
+    setselectedId(id);
     onSelect(document);
   };
 
   return (
     <div>
-      <h2>Document Selector</h2>
-      <ul>
+      <ToggleButtonGroup color="primary" value={selectedId} exclusive onChange={handleDocumentClick}>
         {documents.map((document) => (
-          <li key={document.id} onClick={() => handleDocumentClick(document)} style={{ fontWeight: selectedDocument?.id === document.id ? 'bold' : 'normal' }}>
-            {document.name}
-          </li>
+          <ToggleButton key={document.id} value={document.id!}>
+            {document.name}.{document.extension}
+          </ToggleButton>
         ))}
-      </ul>
+      </ToggleButtonGroup>
     </div>
   );
 };

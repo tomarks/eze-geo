@@ -13,18 +13,27 @@ public class DocumentsController(IMediator mediator) : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(GetDocumentListResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task GetList([FromQuery] GetDocumentListQuery query, CancellationToken cancellation)
-        => await mediator.Send(query, cancellation);
+    public async Task<IActionResult> GetList([FromQuery] GetDocumentListQuery query, CancellationToken cancellation)
+    {
+        var result = await mediator.Send(query, cancellation);
+        return Ok(result);
+    }
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(DocumentItemDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task GetItem([FromQuery] GetDocumentQuery query, CancellationToken cancellation)
-        => await mediator.Send(query, cancellation);
+    public async Task<IActionResult> GetItem([FromRoute] Guid id, CancellationToken cancellation)
+    {
+        var result = await mediator.Send(new GetDocumentQuery { Id = id }, cancellation);
+        return Ok(result);
+    }
 
     [HttpPost]
     [ProducesResponseType(typeof(DocumentCreatedResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task UploadDocument([FromForm] CreateDocumentCommand command, CancellationToken cancellation)
-        => await mediator.Send(command, cancellation);
+    public async Task<IActionResult> UploadDocument([FromForm] CreateDocumentCommand command, CancellationToken cancellation)
+    {
+        var result = await mediator.Send(command, cancellation);
+        return Ok(result);
+    }
 }

@@ -1,8 +1,8 @@
 interface DocumentContentProps {
-  documentExtension: '.csv' | '.geojson';
-  documentData: Blob;
+  documentExtension: string;
+  documentData: string;
 }
 
 export const DocumentContent: React.FC<DocumentContentProps> = ({ documentExtension, documentData }) => {
-  return <div></div>;
+  return <div>{documentData}</div>;
 };
