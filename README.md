@@ -79,6 +79,7 @@ erDiagram
 - Performance will be an issue on the frontend due to lack of response caching but this can be overcome with more work.
 
 ### Future Plans
+- Add developer https certificate
 - Add Unit Tests. `Back-end` and `Front-end`.
 - Find a better blob storage (dont store in sql?)
 - Add Login System using cookies
