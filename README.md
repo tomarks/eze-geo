@@ -1,7 +1,7 @@
-![Build Status](https://github.com/tomarks/eze-geo/actions/workflows/dotnet.yml/badge.svg)
+# eze-geo 
+A .Net Web Api and React SPA to manage and visualise .csv and .geojson datasets
 
-# eze-geo
-.Net Web Api and React SPA to manage and visualise .csv and .geojson datasets
+![Build Status](https://github.com/tomarks/eze-geo/actions/workflows/dotnet.yml/badge.svg)
 
 ## Development
 ### Requirements
