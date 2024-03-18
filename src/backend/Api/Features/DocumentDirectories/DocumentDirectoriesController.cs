@@ -1,9 +1,9 @@
-﻿using Api.Features.DirectoryNodes;
-using Api.Features.DirectoryNodes.GetStructure;
+﻿using Api.Features.DocumentDirectories.Create;
+using Api.Features.DocumentDirectories.GetStructure;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace Api.Features.DocumentDirectories;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -18,11 +18,11 @@ public class DocumentDirectoriesController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(DocumentDirectoryDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DocumentDirectoryOptionDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create(CreateDirectoryCommand command, CancellationToken cancellation)
+    public async Task<IActionResult> Create(CreateDirectoryOptionCommand optionCommand, CancellationToken cancellation)
     {
-        var result = await mediator.Send(command, cancellation);
+        var result = await mediator.Send(optionCommand, cancellation);
         return Ok(result);
     }
 }

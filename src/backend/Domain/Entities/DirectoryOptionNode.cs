@@ -3,7 +3,7 @@ using Domain.Common;
 
 namespace Domain.Entities;
 
-public sealed class DirectoryNode : Entity, ICanHaveParentDirectory
+public sealed class DirectoryOptionNode : Entity, IHaveParentDirectoryOption
 {
     public string Name { get; set; } = null!;
 

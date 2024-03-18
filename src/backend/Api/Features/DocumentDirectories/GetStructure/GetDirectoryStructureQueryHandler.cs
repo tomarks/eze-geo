@@ -1,8 +1,9 @@
+using Api.Features.DocumentDirectories.Common;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Features.DirectoryNodes.GetStructure;
+namespace Api.Features.DocumentDirectories.GetStructure;
 
 public class GetDirectoryStructureQueryHandler(DocumentsContext db) : IRequestHandler<GetDirectoryStructureQuery, DirectoryStructure>
 {
@@ -22,7 +23,7 @@ public class GetDirectoryStructureQueryHandler(DocumentsContext db) : IRequestHa
 
         // TODO: Fix PERFORMANCE/TIME COMPLEXITY ISSUE
         // Refactor to improve performance here. Remove nodes from the input list as we add them?
-        DocumentDirectoryDto MapChildren(DocumentDirectoryDto node, IEnumerable<DocumentDirectoryDto> nodes)
+        DocumentDirectoryOptionDto MapChildren(DocumentDirectoryOptionDto node, IEnumerable<DocumentDirectoryOptionDto> nodes)
         {
             node.Directories = nodes
                 .Where(x => x.ParentDirectoryId == node.Id)

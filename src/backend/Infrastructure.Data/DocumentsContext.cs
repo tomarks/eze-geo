@@ -11,7 +11,7 @@ public class DocumentsContext : DbContext
     }
 
     public DbSet<Document> Documents => Set<Document>();
-    public DbSet<DirectoryNode> DirectoryNodes => Set<DirectoryNode>();
+    public DbSet<DirectoryOptionNode> DirectoryNodes => Set<DirectoryOptionNode>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

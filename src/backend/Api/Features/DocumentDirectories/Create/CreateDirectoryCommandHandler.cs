@@ -1,11 +1,13 @@
+using Api.Features.DocumentDirectories.Common;
+using Api.Features.DocumentDirectories.GetStructure;
 using Infrastructure;
 using MediatR;
 
-namespace Api.Features.DirectoryNodes;
+namespace Api.Features.DocumentDirectories.Create;
 
-public class CreateDirectoryCommandHandler(DocumentsContext db) : IRequestHandler<CreateDirectoryCommand, DocumentDirectoryDto>
+public class CreateDirectoryCommandHandler(DocumentsContext db) : IRequestHandler<CreateDirectoryOptionCommand, DocumentDirectoryOptionDto>
 {
-    public async Task<DocumentDirectoryDto> Handle(CreateDirectoryCommand request,
+    public async Task<DocumentDirectoryOptionDto> Handle(CreateDirectoryOptionCommand request,
         CancellationToken cancellation)
     {
         var entity = request.ToEntity();

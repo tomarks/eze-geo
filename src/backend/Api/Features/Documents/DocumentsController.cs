@@ -1,10 +1,10 @@
-﻿using Api.Features.Documents.GetItem;
+﻿using Api.Features.Documents.CreateDocument;
+using Api.Features.Documents.GetItem;
 using Api.Features.Documents.GetList;
-using Api.Features.Documents.UploadDocument;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace Api.Features.Documents;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,9 +1,9 @@
-﻿using Api.Features.Documents.GetItem;
+﻿using Api.Features.Documents.CreateDocument;
+using Api.Features.Documents.GetItem;
 using Api.Features.Documents.GetList;
-using Api.Features.Documents.UploadDocument;
 using Domain.Entities;
 
-namespace Api.Features.Documents;
+namespace Api.Features.Documents.Common;
 
 public static class DocumentExtensions
 {

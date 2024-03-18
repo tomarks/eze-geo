@@ -2,9 +2,9 @@ using FluentValidation;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Features.DirectoryNodes;
+namespace Api.Features.DocumentDirectories.Create;
 
-public class CreateDirectoryCommandValidator : AbstractValidator<CreateDirectoryCommand>
+public class CreateDirectoryCommandValidator : AbstractValidator<CreateDirectoryOptionCommand>
 {
     public CreateDirectoryCommandValidator(DocumentsContext db)
     {

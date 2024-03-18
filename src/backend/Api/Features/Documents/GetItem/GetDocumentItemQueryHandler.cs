@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Api.Features.Documents.Common;
+using FluentValidation;
 using FluentValidation.Results;
 using Infrastructure;
 using MediatR;

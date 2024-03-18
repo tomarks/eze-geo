@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Api.Features.DirectoryNodes.GetStructure;
+namespace Api.Features.DocumentDirectories.GetStructure;
 
 public class GetDirectoryStructureQuery: IRequest<DirectoryStructure>
 {

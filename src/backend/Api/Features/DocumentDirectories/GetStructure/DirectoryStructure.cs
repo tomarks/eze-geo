@@ -1,6 +1,6 @@
-namespace Api.Features.DirectoryNodes.GetStructure;
+namespace Api.Features.DocumentDirectories.GetStructure;
 
 public class DirectoryStructure
 {
-    public List<DocumentDirectoryDto> RootDirectories { get; set; } = new();
+    public List<DocumentDirectoryOptionDto> RootDirectories { get; set; } = new();
 }

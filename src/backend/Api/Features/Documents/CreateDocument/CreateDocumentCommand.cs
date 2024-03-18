@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions;
 using MediatR;
 
-namespace Api.Features.Documents.UploadDocument;
+namespace Api.Features.Documents.CreateDocument;
 
 public sealed record CreateDocumentCommand(
     Guid ParentDirectoryId,

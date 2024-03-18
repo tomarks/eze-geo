@@ -1,11 +1,10 @@
-﻿using Api.Constants;
-using Domain.Entities;
+﻿using Api.Features.Documents.Common;
 using FluentValidation;
 using FluentValidation.Results;
 using Infrastructure;
 using MediatR;
 
-namespace Api.Features.Documents.UploadDocument;
+namespace Api.Features.Documents.CreateDocument;
 
 public class CreateDocumentCommandHandler(DocumentsContext db) : IRequestHandler<CreateDocumentCommand, DocumentCreatedResponse>
 {

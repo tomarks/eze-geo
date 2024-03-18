@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions;
 
-namespace Api.Features.Documents.UploadDocument;
+namespace Api.Features.Documents.CreateDocument;
 
 public class DocumentCreatedResponse: IEntity
 {

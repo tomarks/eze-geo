@@ -1,7 +1,7 @@
 ﻿using Api.Constants;
 using FluentValidation;
 
-namespace Api.Features.Documents.UploadDocument;
+namespace Api.Features.Documents.CreateDocument;
 
 public class CreateDocumentCommandValidator : AbstractValidator<CreateDocumentCommand>
 {

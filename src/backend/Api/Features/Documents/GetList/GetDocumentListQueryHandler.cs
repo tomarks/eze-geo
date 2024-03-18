@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Api.Features.Documents.Common;
+using Domain.Entities;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
