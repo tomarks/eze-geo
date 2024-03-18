@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,28 +37,17 @@ namespace Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Documents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Documents_DirectoryNodes_ParentDirectoryId",
-                        column: x => x.ParentDirectoryId,
-                        principalTable: "DirectoryNodes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Documents_ParentDirectoryId",
-                table: "Documents",
-                column: "ParentDirectoryId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Documents");
+                name: "DirectoryNodes");
 
             migrationBuilder.DropTable(
-                name: "DirectoryNodes");
+                name: "Documents");
         }
     }
 }

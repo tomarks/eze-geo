@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(DocumentsContext))]
-    [Migration("20240316041844_initial")]
-    partial class initial
+    [Migration("20240318101106_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace Api.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
 
-            modelBuilder.Entity("Domain.Entities.DirectoryNode", b =>
+            modelBuilder.Entity("Domain.Entities.DirectoryOptionNode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,25 +64,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentDirectoryId");
-
                     b.ToTable("Documents", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Document", b =>
-                {
-                    b.HasOne("Domain.Entities.DirectoryNode", "ParentDirectory")
-                        .WithMany("Documents")
-                        .HasForeignKey("ParentDirectoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ParentDirectory");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DirectoryNode", b =>
-                {
-                    b.Navigation("Documents");
                 });
 #pragma warning restore 612, 618
         }

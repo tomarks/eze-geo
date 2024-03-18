@@ -17,7 +17,7 @@ namespace Api.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
 
-            modelBuilder.Entity("Domain.Entities.DirectoryNode", b =>
+            modelBuilder.Entity("Domain.Entities.DirectoryOptionNode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,9 +46,6 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("BLOB");
 
-                    b.Property<Guid?>("DirectoryNodeId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Extension")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -64,21 +61,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DirectoryNodeId");
-
                     b.ToTable("Documents", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Document", b =>
-                {
-                    b.HasOne("Domain.Entities.DirectoryNode", null)
-                        .WithMany("Documents")
-                        .HasForeignKey("DirectoryNodeId");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DirectoryNode", b =>
-                {
-                    b.Navigation("Documents");
                 });
 #pragma warning restore 612, 618
         }

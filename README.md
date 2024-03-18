@@ -23,6 +23,7 @@ A .Net Web Api and React SPA to manage and visualise .csv and .geojson datasets
    1. Navigate to `/src/frontend/` in the terminal
    2. Run `npm run setup` to install pnpm and the project packages
    3. Run `npm start` to run vite
+   4. Note: API Models are generated using NSwagStudio, configuration file is available `nswagconfig.nswag`
 3. Database
    1. Nothing needs to be done, the project should create a sqlite database automatically in the local user directory `C:\Users\{user}\AppData\Local`
    2. Delete the file and re-run the project to start clean
@@ -73,6 +74,7 @@ erDiagram
 ```
 
 ### Current Limitations
+
 - Directory Heirarchy is built using a single table using the entity `DocumentDirectoryNode`. To determine the folder structure you must traverse all nodes in the table, this is a time complexity issue for larger systems and should be refactored into a graph style dataset.
 - Performance will be an issue on the frontend due to lack of response caching but this can be overcome with more work.
 
@@ -87,3 +89,5 @@ erDiagram
 - Fix Performance/Time Complexity of the `GetDirectoryStructureQuery`
 - Add Pagination to `GetDocumentListQuery`
 - Remove auto migrations from `Program.cs` and find a better approach
+- Better UI (loading screens, better looking tables, caching)
+- Frontend-Development Improvements: Better layout of components and structure of the project, better naming, use more components

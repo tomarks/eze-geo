@@ -163,7 +163,7 @@ export const FolderExplorerProvider: React.FC<{
         .then((res) => {
           setIsUploadingFile(false);
 
-          // TODO: add files to current files list
+          setDocumentsList([...documentsList, { id: res.id!, name: file.name!, extension: file.name!.split('.').pop()!, parentDirectoryId: selectedDirectoryId }]);
         })
         .catch((err) => {
           setIsUploadingFile(false);
