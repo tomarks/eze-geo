@@ -1,14 +1,26 @@
 import { Button, Card, CardContent, CardHeader, Paper, TextField, Typography } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
 import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
 import { useFolderExplorerContext } from './folder-explorer.context';
 import { DocumentViewer } from '../document-viewer/document-viewer.component';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const FolderExplorerPage = () => {
+  var navigate = useNavigate();
+
   const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile, documentsList, isLoading } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
   const fileUploadInput = useRef<HTMLInputElement>(null);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    // TODO: This was added as an afterthought. Code in the useFolderExplorerContext should be refactored to use the useParams hook directly
+    if (id != null && selectedDirectoryId !== id) {
+      selectFolder(id!);
+    }
+  }, [id]);
 
   const onCreateFolderClick = () => {
     setFolderName('');
@@ -60,7 +72,7 @@ export const FolderExplorerPage = () => {
           </Card>
 
           <Card elevation={2} className="w-full">
-            <CardHeader className="text-left" title={<DirectoryBreadcrumbs items={selectedDirectoryPath?.map((x) => x.name!)} />} />
+            <CardHeader className="text-left" title={<DirectoryBreadcrumbs items={selectedDirectoryPath?.map((x) => ({ name: x.name!, id: x.id! }))} />} />
 
             {isLoading ? (
               <div className="m-5">Loading...</div>

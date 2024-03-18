@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { Client, DirectoryStructure, DocumentDirectoryDto, DocumentListDto, FileParameter } from '../../../generated/client';
 import { handleError } from '../../utils/error-handling-utils';
+import { useNavigate, useParams } from 'react-router-dom';
 
-// Define the initial state of the context
+// Model of the context
 interface FolderExplorerContextState {
   directoryStructure: DirectoryStructure | null;
   selectedDirectoryId: string | null;
@@ -28,6 +29,7 @@ export const FolderExplorerContext = createContext<FolderExplorerContextState | 
   documentsList: [],
 });
 
+// Safe hook to consume the context
 export const useFolderExplorerContext = () => {
   const folderExplorerContext = useContext(FolderExplorerContext);
 
@@ -42,6 +44,8 @@ export const useFolderExplorerContext = () => {
 export const FolderExplorerProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const navigate = useNavigate();
+
   // Setup State
   const [selectedDirectoryId, setselectedDirectoryId] = useState<string | null>(null);
   const [directoryStructure, setDirectoryStructure] = useState<DirectoryStructure | null>(null);
@@ -79,7 +83,7 @@ export const FolderExplorerProvider: React.FC<{
   }, []);
 
   // API Request to get documents in the selected directory
-  // TODO: Find another way to make api requests. This is not the best way to do it.
+  // TODO: Find another way to make api requests. This may not the best way to do it.
   useEffect(() => {
     if (!selectedDirectoryId) return;
 
@@ -98,13 +102,14 @@ export const FolderExplorerProvider: React.FC<{
       });
 
     return () => {
-      // TODO Add API CANCELLATION
+      // TODO: handle API CANCELLATION
     };
   }, [selectedDirectoryId]);
 
   // Define the selectFolder function to update the selected folder
-  const selectFolder = (folder: string) => {
-    setselectedDirectoryId(folder);
+  const selectFolder = (directoryId: string) => {
+    setselectedDirectoryId(directoryId);
+    navigate(`/${directoryId}`);
   };
 
   // API Request to create a folder
@@ -117,6 +122,7 @@ export const FolderExplorerProvider: React.FC<{
       .then((res) => {
         updateDirectoryStructure(selectedDirectoryId, res, directoryStructure!);
         setIsCreatingFolder(false);
+        selectFolder(res.id!);
       })
       .catch((err) => {
         setIsCreatingFolder(false);

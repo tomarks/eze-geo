@@ -89,5 +89,6 @@ erDiagram
 - Fix Performance/Time Complexity of the `GetDirectoryStructureQuery`
 - Add Pagination to `GetDocumentListQuery`
 - Remove auto migrations from `Program.cs` and find a better approach
-- Better UI (loading screens, better looking tables, caching)
-- Frontend-Development Improvements: Better layout of components and structure of the project, better naming, use more components
+- Frontend: Improve UI (loading screens, table styling, request caching, display errors better using modal or toast messages)
+- Frontend-Dev: Better layout of components and structure of the project, better naming, use more components
+- Frontend: `FolderExplorerContext` getting messy and look into implementing cancellation tokens for api request
