@@ -1,10 +1,10 @@
 import { Button, Card, CardContent, CardHeader, Paper, TextField, Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
 import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
-import { useFolderExplorerContext } from './folder-explorer.context';
 import { DocumentViewer } from '../document-viewer/document-viewer.component';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useFolderExplorerContext } from './folder-explorer.context';
 
 export const FolderExplorerPage = () => {
   var navigate = useNavigate();
@@ -23,6 +23,7 @@ export const FolderExplorerPage = () => {
   }, [id]);
 
   const onCreateFolderClick = () => {
+    if (folderName == null || folderName === '') return;
     setFolderName('');
     createFolder(folderName);
   };
@@ -47,13 +48,25 @@ export const FolderExplorerPage = () => {
           </Typography>
         </div>
 
-        {/* Action Bar */}
+        {/* Action Bar - TODO: Make this a Create Folder component? */}
         <div className="m-5 flex flex-row gap-5">
           <div className="flex flex-row gap-5 ">
             <Button onClick={onCreateFolderClick} variant="contained">
               Create Folder
             </Button>
-            <TextField autoComplete="off" id="folderNameInput" label="Folder Name" variant="standard" value={folderName} onChange={(e) => setFolderName(e.target.value)} />
+            <TextField
+              autoComplete="off"
+              id="folderNameInput"
+              label="Folder Name"
+              variant="standard"
+              value={folderName}
+              onChange={(e) => setFolderName(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  onCreateFolderClick();
+                }
+              }}
+            />
           </div>
           <div className="flex grow flex-row justify-end">
             <input ref={fileUploadInput} onChange={handleFileUpload} id="fileUploadInput" type="file" hidden />

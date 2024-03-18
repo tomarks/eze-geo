@@ -2,7 +2,6 @@
 import Papa from 'papaparse';
 // @ts-ignore
 import CanvasJSReact from '@canvasjs/react-charts';
-import { title } from 'process';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -32,8 +31,6 @@ export const CsvViewer: React.FC<CsvViewerProps> = ({ documentData }) => {
 const renderGraph = (data: string[][]) => {
   const columns = data[0];
   const rows = data.slice(1);
-
-  console.log(rows);
 
   const options = {
     title: {
