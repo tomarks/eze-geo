@@ -49,8 +49,8 @@ Develop a web-based file and folder explorer with the following features (use th
 
 ### Terms
 
-- Directory - A Virtual directory with its overall structure determined by keeping a reference to its parent using an id.
-- Document - An uploaded document with a record persisted with a reference to its folder
+- Directory - A Virtual directory with its overall structure determined by a parent id to another directory (no id means root directory)
+- Document - An uploaded document with a record persisted to reference its parent directory
 
 ### Schema
 
