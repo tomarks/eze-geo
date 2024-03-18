@@ -2,6 +2,7 @@
 import Papa from 'papaparse';
 // @ts-ignore
 import CanvasJSReact from '@canvasjs/react-charts';
+import { title } from 'process';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -38,6 +39,14 @@ const renderGraph = (data: string[][]) => {
     title: {
       text: 'Line Chart',
     },
+    axisX: {
+      title: columns[0],
+    },
+    axisY: {
+      title: columns[1],
+    },
+    animationEnabled: true,
+    theme: 'light2',
     data: [
       {
         type: 'line',
