@@ -77,11 +77,13 @@ erDiagram
 - Performance will be an issue on the frontend due to lack of response caching but this can be overcome with more work.
 
 ### Future Plans
-
-- Add Unit Tests. Back-end and Front-end.
-- Handle any existing TODO comments in backend project
-- Move file data to blob storage (not sql)
+- Add Unit Tests. `Back-end` and `Front-end`.
+- Find a better blob storage (dont store in sql?)
 - Add Login System using cookies
-- Add Rename/Update/Delete for files and directories
+- Add Rename/Update/Delete capability for `Documents` and `Directories`
 - Migrate from Sqlite to Postgres
-- Investigate how to draw boundaries on a map using haversine formula and only recording longitudes and latitudes
+- Investigate how to draw boundaries on a map using haversine formula and only recording longitudes and latitudes (geojson?)
+- Fix Fluent validation for `CreateDocumentCommand`
+- Fix Performance/Time Complexity of the `GetDirectoryStructureQuery`
+- Add Pagination to `GetDocumentListQuery`
+- Remove auto migrations from `Program.cs` and find a better approach
