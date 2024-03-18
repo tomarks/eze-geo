@@ -72,6 +72,10 @@ erDiagram
     }
 ```
 
+### Current Limitations
+- Directory Heirarchy is built using a single table using the entity `DocumentDirectoryNode`. To determine the folder structure you must traverse all nodes in the table, this is a time complexity issue for larger systems and should be refactored into a graph style dataset.
+- Performance will be an issue on the frontend due to lack of response caching but this can be overcome with more work.
+
 ### Future Plans
 
 - Add Unit Tests. Back-end and Front-end.
