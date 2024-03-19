@@ -79,17 +79,21 @@ erDiagram
 - Performance will be an issue on the frontend due to lack of response caching but this can be overcome with more work.
 
 ### Future Plans
-- Add developer https certificate
+
+#### Non Functional
+
 - Add Unit Tests. `Back-end` and `Front-end`.
 - Find a better blob storage (dont store in sql?)
-- Add Login System using cookies
-- Add Rename/Update/Delete capability for `Documents` and `Directories`
 - Migrate from Sqlite to Postgres
-- Investigate how to draw boundaries on a map using haversine formula and only recording longitudes and latitudes (geojson?)
 - Fix Fluent validation for `CreateDocumentCommand`
-- Fix Performance/Time Complexity of the `GetDirectoryStructureQuery`
-- Add Pagination to `GetDocumentListQuery`
 - Remove auto migrations from `Program.cs` and find a better approach
-- Frontend: Improve UI (loading screens, table styling, request caching, display errors better using modal or toast messages)
 - Frontend-Dev: Better layout of components and structure of the project, better naming, use more components
 - Frontend: `FolderExplorerContext` getting messy and look into implementing cancellation tokens for api request
+
+#### Functional
+
+- Add Login System using cookies
+- Add Rename/Update/Delete capability for `Documents` and `Directories`
+- Fix Performance/Time Complexity of the `GetDirectoryStructureQuery`
+- Add Pagination to `GetDocumentListQuery`
+- Frontend: Improve UI (loading screens, table styling, request caching, display errors better using modal or toast messages)
