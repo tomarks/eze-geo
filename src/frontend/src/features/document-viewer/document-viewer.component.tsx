@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Client, DocumentListDto } from '../../../generated/client';
 import { handleError } from '../../utils/error-handling-utils';
 import { CsvViewer } from './csv-viewer';
@@ -11,32 +11,45 @@ interface DocumentViewerProps {
 
 export const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => {
   const [selectedDocument, setselectedDocument] = useState<DocumentListDto | null>(null);
+  const currentDocument = useRef<DocumentListDto | null>(null);
+
   const [documentContent, setDocumentContent] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const api = new Client('/api');
 
-  const renderDocument = (document: DocumentListDto) => {
-    if (document.extension?.endsWith('csv')) {
-      return <CsvViewer documentData={documentContent!}></CsvViewer>;
-    } else if (document.extension?.endsWith('geojson')) {
-      return <MapViewer data={{ data: JSON.parse(documentContent!) }}></MapViewer>;
+  const renderDocument = (document: DocumentListDto, content: string) => {
+    if (isLoading) return <div>Loading...</div>;
+
+    if (!document || !content) return <div>Select a document...</div>;
+
+    if (currentDocument.current?.id === selectedDocument?.id) {
+      if (document.extension?.endsWith('csv')) {
+        return <CsvViewer documentData={documentContent!}></CsvViewer>;
+      } else if (document.extension?.endsWith('geojson')) {
+        return <MapViewer data={{ data: JSON.parse(documentContent!) }}></MapViewer>;
+      }
     }
+
+    return null;
   };
 
   useEffect(() => {
-    if (!!selectedDocument) {
+    setDocumentContent(null);
+
+    if (selectedDocument?.id != null) {
       setIsLoading(true);
-      const api = new Client('/api');
 
       api
         .documentsGET2(selectedDocument.id!)
         .then((res) => {
-          setIsLoading(false);
-
           setDocumentContent(res.data!);
+          currentDocument.current = selectedDocument;
+          setIsLoading(false);
         })
         .catch((err) => {
-          setIsLoading(false);
           handleError(err);
+          currentDocument.current = null;
+          setIsLoading(false);
         });
     }
   }, [selectedDocument]);
@@ -44,8 +57,7 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => 
   return (
     <div>
       <DocumentSelector documents={documents} onSelect={setselectedDocument}></DocumentSelector>
-
-      {isLoading ? <div className="m-5">Loading...</div> : <>{!!documentContent && !!selectedDocument?.extension ? renderDocument(selectedDocument) : null}</>}
+      {renderDocument(selectedDocument!, documentContent!)}
     </div>
   );
 };

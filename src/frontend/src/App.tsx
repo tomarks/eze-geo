@@ -8,8 +8,8 @@ function App() {
     <BrowserRouter>
       <FolderExplorerProvider>
         <Routes>
-          <Route path="/:id" element={<FolderExplorerPage />} />
           <Route path="/" element={<FolderExplorerPage />} />
+          <Route path="/:id" element={<FolderExplorerPage />} />
         </Routes>
       </FolderExplorerProvider>
     </BrowserRouter>

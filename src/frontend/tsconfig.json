@@ -14,8 +14,6 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
 
-    "allowJs": true /* Allow javascript files to be compiled. */,
-    "checkJs": true /* Report errors in .js files. */,
     "noEmit": true /* Do not emit outputs. */,
 
     /* Linting */
