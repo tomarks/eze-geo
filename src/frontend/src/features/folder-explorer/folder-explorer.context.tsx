@@ -121,8 +121,8 @@ export const FolderExplorerProvider: React.FC<{
       .documentDirectoriesPOST({ name: folder, parentDirectoryId: selectedDirectoryId! })
       .then((res) => {
         updateDirectoryStructure(selectedDirectoryId, res, directoryStructure!);
-        setIsCreatingFolder(false);
         selectFolder(res.id!);
+        setIsCreatingFolder(false);
       })
       .catch((err) => {
         setIsCreatingFolder(false);

@@ -20,7 +20,7 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ documents }) => 
   const renderDocument = (document: DocumentListDto, content: string) => {
     if (isLoading) return <div>Loading...</div>;
 
-    if (!document || !content) return <div>Select a document...</div>;
+    if (!document || !content) return documents?.length ? <div>Select a document...</div> : <div>There are no documents to display...</div>;
 
     if (currentDocument.current?.id === selectedDocument?.id) {
       if (document.extension?.endsWith('csv')) {

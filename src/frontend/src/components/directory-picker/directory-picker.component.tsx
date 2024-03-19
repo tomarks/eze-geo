@@ -3,12 +3,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import { TreeView } from '@mui/x-tree-view/TreeView';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { DirectoryStructure, DocumentDirectoryDto } from '../../../generated/client';
+
 interface DirectoryPickerProps {
   disabled: boolean;
   structure: DirectoryStructure;
   onDirectorySelected: (directory: string) => void;
+  selectedId: string | undefined;
 }
 
 const renderTreeItem = (directory: DocumentDirectoryDto): JSX.Element => {
@@ -19,8 +20,7 @@ const renderTreeItem = (directory: DocumentDirectoryDto): JSX.Element => {
   );
 };
 
-export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySelected, structure, disabled }) => {
-  const { id } = useParams();
+export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySelected, structure, disabled, selectedId }) => {
 
   return (
     <TreeView
@@ -29,7 +29,7 @@ export const DirectoryPicker: React.FC<DirectoryPickerProps> = ({ onDirectorySel
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
       defaultExpanded={structure.rootDirectories?.map((x) => x.id!)}
-      selected={id}
+      selected={selectedId}
       onNodeSelect={(event, node) => {
         if (node) {
           onDirectorySelected(node);

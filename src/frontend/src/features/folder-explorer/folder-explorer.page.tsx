@@ -1,13 +1,12 @@
 import { Button, Card, CardContent, CardHeader, Paper, TextField, Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { DirectoryBreadcrumbs } from '../../components/breadcrumbs/directory-breadcrumbs.component';
 import { DirectoryPicker } from '../../components/directory-picker/directory-picker.component';
 import { DocumentViewer } from '../document-viewer/document-viewer.component';
 import { useFolderExplorerContext } from './folder-explorer.context';
 
 export const FolderExplorerPage = () => {
-  var navigate = useNavigate();
 
   const { directoryStructure, selectFolder, createFolder, selectedDirectoryId, selectedDirectoryPath, uploadFile, documentsList, isLoading } = useFolderExplorerContext();
   const [folderName, setFolderName] = useState('');
@@ -81,7 +80,7 @@ export const FolderExplorerPage = () => {
         <div className="m-5 flex h-full flex-1 flex-row gap-5">
           <Card elevation={2} className=" h-full w-96">
             <CardHeader className="text-left" title="Folders" />
-            <CardContent>{directoryStructure && <DirectoryPicker disabled={isLoading} structure={directoryStructure} onDirectorySelected={selectFolder} />}</CardContent>
+            <CardContent>{directoryStructure && <DirectoryPicker selectedId={id} disabled={isLoading} structure={directoryStructure} onDirectorySelected={selectFolder} />}</CardContent>
           </Card>
 
           <Card elevation={2} className="w-full">
