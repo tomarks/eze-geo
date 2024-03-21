@@ -32,7 +32,7 @@ A .Net Web Api and React SPA to manage and visualise .csv and .geojson datasets
 
 ### Goals
 
-Develop a web-based file and folder explorer with the following features (use the wireframe below as the app’s UI layout).
+Develop a web-based file and folder explorer with the following features.
 
 - Display a file directory tree view to navigate within your file and folder system.
 - Display a breadcrumb trail with links to parent or grandparent folders.
